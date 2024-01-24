@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const dataSchema = new mongoose.Schema({
-    end_year: String,
+  end_year: String,
   intensity: Number,
   sector: String,
   topic: String,

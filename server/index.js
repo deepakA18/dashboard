@@ -5,7 +5,7 @@ const cors = require('cors')
 require('dotenv').config({path: '.env'})
 const connectDB = require('./db/conn')
 
-const data = require('./routes/data')
+const Data = require('./model/dataSchema')
 
 
 const port = process.env.PORT || 8080;
@@ -13,7 +13,15 @@ const port = process.env.PORT || 8080;
 app.use(cors());
 app.use(express.json()); 
 
-app.use('/api',data);
+app.get('/api/data',async (req,res)=> {
+    try {
+        const filters = req.query;
+        const data = await Data.find(filters);
+        res.status(200).json({msg: "Successfully fetched data.", data});
+    } catch (error) {
+        return res.status(500).json({msg: "Internal server error!",error})
+    }
+})
 
 
 
